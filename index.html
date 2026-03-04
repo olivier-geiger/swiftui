@@ -3,8 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SwiftUI Bootcamp — Formation SwiftUI en Français (76 leçons)</title>
-<meta name="description" content="Formation SwiftUI complète en français : 76 leçons pour apprendre à créer des apps iOS modernes avec SwiftUI (layout, navigation, state, animations, formulaires, iOS 15+).">
+
+<title>SwiftUI Bootcamp – Formation SwiftUI en français (76 leçons iOS)</title>
+
+<meta name="description" content="SwiftUI Bootcamp : formation complète en français avec 76 leçons pour apprendre à développer des applications iOS modernes avec SwiftUI (layout, navigation, state, animations, formulaires, iOS 15+).">
 <meta name="robots" content="index,follow">
 <meta name="author" content="CodeWithOlivier">
 <link rel="canonical" href="/">
@@ -12,22 +14,22 @@
 <!-- Open Graph -->
 <meta property="og:type" content="website">
 <meta property="og:locale" content="fr_FR">
-<meta property="og:title" content="SwiftUI Bootcamp — Formation SwiftUI en Français (76 leçons)">
-<meta property="og:description" content="Bootcamp SwiftUI complet en français pour maîtriser SwiftUI et créer des applications iOS modernes de A à Z.">
+<meta property="og:title" content="SwiftUI Bootcamp – Formation SwiftUI en français (76 leçons iOS)">
+<meta property="og:description" content="Bootcamp SwiftUI complet en français pour devenir développeur iOS avec SwiftUI : 76 leçons, exemples concrets et bonnes pratiques.">
 <meta property="og:site_name" content="SwiftUI Bootcamp">
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="SwiftUI Bootcamp — Formation SwiftUI en Français">
-<meta name="twitter:description" content="Cours SwiftUI en français : 76 leçons pour passer de débutant à avancé sur iOS.">
+<meta name="twitter:title" content="SwiftUI Bootcamp – Formation SwiftUI en français">
+<meta name="twitter:description" content="Apprenez SwiftUI étape par étape en français et créez vos premières apps iOS modernes.">
 
 <!-- Structured data -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "Course",
-  "name": "SwiftUI Bootcamp — Formation SwiftUI en Français",
-  "description": "Bootcamp SwiftUI complet de 76 leçons, en français, pour apprendre à développer des applications iOS modernes avec SwiftUI.",
+  "name": "SwiftUI Bootcamp – Formation SwiftUI en français",
+  "description": "Bootcamp complet de 76 leçons pour apprendre SwiftUI en français et créer des applications iOS modernes.",
   "inLanguage": "fr-FR",
   "provider": {
     "@type": "Person",
@@ -1917,6 +1919,240 @@
     SwiftUI Bootcamp · 76 leçons · Tous droits réservés · Fait avec ❤️ pour apprendre iOS
   </div>
 </footer>
+
+<!-- SEARCH OVERLAY -->
+<div id="search-overlay" style="
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:999;
+  background:rgba(0,0,0,0.7);
+  backdrop-filter:blur(8px);
+  padding:80px 24px 24px;
+  align-items:flex-start;
+  justify-content:center;
+">
+  <div style="width:100%;max-width:640px;">
+    <div style="
+      display:flex;
+      align-items:center;
+      gap:12px;
+      background:#16161f;
+      border:1px solid rgba(255,107,53,0.4);
+      border-radius:14px;
+      padding:14px 20px;
+      margin-bottom:16px;
+    ">
+      <svg width="18" height="18" fill="none" stroke="#6b6b80" stroke-width="2" viewBox="0 0 24 24">
+        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+      </svg>
+      <input id="search-input" placeholder="Rechercher un concept, modifier, lecon..." style="
+        flex:1;
+        background:none;
+        border:none;
+        outline:none;
+        color:#e8e8f0;
+        font-family:'JetBrains Mono',monospace;
+        font-size:15px;
+      "/>
+      <kbd onclick="closeSearch()" style="
+        background:#0d1117;
+        border:1px solid #1e1e2e;
+        border-radius:6px;
+        padding:2px 8px;
+        font-family:'JetBrains Mono',monospace;
+        font-size:11px;
+        color:#6b6b80;
+        cursor:pointer;
+      ">esc</kbd>
+    </div>
+    <div id="search-results" style="
+      background:#16161f;
+      border:1px solid #1e1e2e;
+      border-radius:14px;
+      overflow:hidden;
+      max-height:420px;
+      overflow-y:auto;
+    "></div>
+    <div style="padding:10px 4px 0;font-family:'JetBrains Mono',monospace;font-size:11px;color:#3a3a50;display:flex;gap:20px;">
+      <span>↑↓ naviguer</span><span>↵ aller</span><span>esc fermer</span><span>⌘K ouvrir</span>
+    </div>
+  </div>
+</div>
+
+<!-- FLOATING SEARCH BUTTON -->
+<button id="fab-search" onclick="openSearch()" title="Rechercher (Cmd+K)" style="
+  position:fixed;
+  bottom:28px;
+  right:28px;
+  z-index:998;
+  width:54px;height:54px;
+  border-radius:50%;
+  background:linear-gradient(135deg,#ff6b35,#ff3d00);
+  border:none;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 4px 24px rgba(255,107,53,0.4);
+  transition:transform 0.2s,box-shadow 0.2s;
+">
+  <svg width="22" height="22" fill="none" stroke="white" stroke-width="2.5" viewBox="0 0 24 24">
+    <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+  </svg>
+</button>
+
+<script>
+  // Build search index
+  const searchIndex = [];
+
+  document.querySelectorAll('.big-card, .card').forEach(card => {
+    const numEl = card.querySelector('.card-num');
+    const titleEl = card.querySelector('h3, .card-title');
+    const descEl = card.querySelector('.card-desc, p.desc');
+    const codeEl = card.querySelector('.code-block');
+    const section = card.closest('section');
+    const sectionTitle = section ? (section.querySelector('h2')?.textContent || '') : '';
+
+    const num = numEl?.textContent?.trim() || '';
+    const title = titleEl?.textContent?.trim() || '';
+    const desc = descEl?.textContent?.trim() || '';
+    const code = codeEl?.textContent?.trim() || '';
+    const mods = [...card.querySelectorAll('.mod-tag')].map(m => m.textContent).join(' ');
+    const text = (num + ' ' + title + ' ' + desc + ' ' + code + ' ' + mods).toLowerCase();
+
+    if (!card.id) {
+      card.id = 'card-' + Math.random().toString(36).slice(2, 8);
+    }
+
+    if (title) {
+      searchIndex.push({ id: card.id, num, title, sectionTitle, text });
+    }
+  });
+
+  // FAB hover
+  const fab = document.getElementById('fab-search');
+  fab.addEventListener('mouseover', () => {
+    fab.style.transform = 'scale(1.1)';
+    fab.style.boxShadow = '0 6px 32px rgba(255,107,53,0.6)';
+  });
+  fab.addEventListener('mouseout', () => {
+    fab.style.transform = 'scale(1)';
+    fab.style.boxShadow = '0 4px 24px rgba(255,107,53,0.4)';
+  });
+
+  function openSearch() {
+    const overlay = document.getElementById('search-overlay');
+    overlay.style.display = 'flex';
+    setTimeout(() => document.getElementById('search-input').focus(), 50);
+    renderResults('');
+  }
+
+  function closeSearch() {
+    document.getElementById('search-overlay').style.display = 'none';
+    document.getElementById('search-input').value = '';
+  }
+
+  document.getElementById('search-overlay').addEventListener('click', function(e) {
+    if (e.target === this) closeSearch();
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+      e.preventDefault();
+      openSearch();
+    }
+    if (e.key === 'Escape') closeSearch();
+  });
+
+  document.getElementById('search-input').addEventListener('input', function() {
+    renderResults(this.value);
+  });
+
+  document.getElementById('search-input').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') {
+      const first = document.querySelector('#search-results .result-item');
+      if (first) first.click();
+    }
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      const items = document.querySelectorAll('#search-results .result-item');
+      if (items.length) items[0].focus();
+    }
+  });
+
+  // Arrow key navigation in results
+  document.getElementById('search-results').addEventListener('keydown', function(e) {
+    const items = [...document.querySelectorAll('#search-results .result-item')];
+    const idx = items.indexOf(document.activeElement);
+    if (e.key === 'ArrowDown' && idx < items.length - 1) {
+      e.preventDefault();
+      items[idx + 1].focus();
+    }
+    if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      if (idx <= 0) document.getElementById('search-input').focus();
+      else items[idx - 1].focus();
+    }
+  });
+
+  function renderResults(query) {
+    const container = document.getElementById('search-results');
+    const q = query.trim().toLowerCase();
+
+    let results = q
+      ? searchIndex.filter(item => item.text.includes(q))
+      : searchIndex;
+    results = results.slice(0, 8);
+
+    if (!results.length) {
+      container.innerHTML = '<div style="padding:20px 24px;color:#6b6b80;font-family:JetBrains Mono,monospace;font-size:13px;">Aucun résultat pour "' + query + '"</div>';
+      return;
+    }
+
+    container.innerHTML = results.map(item => `
+      <div class="result-item" tabindex="0"
+        onclick="goTo('${item.id}')"
+        onkeydown="if(event.key==='Enter')goTo('${item.id}')"
+        style="display:flex;align-items:center;gap:16px;padding:14px 20px;cursor:pointer;border-bottom:1px solid #1e1e2e;transition:background 0.15s;outline:none;"
+        onmouseover="this.style.background='rgba(255,107,53,0.08)'"
+        onmouseout="this.style.background='transparent'"
+        onfocus="this.style.background='rgba(255,107,53,0.08)'"
+        onblur="this.style.background='transparent'">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#ff6b35;background:rgba(255,107,53,0.1);border:1px solid rgba(255,107,53,0.2);border-radius:6px;padding:2px 8px;white-space:nowrap;flex-shrink:0;">${item.num || '#'}</div>
+        <div style="flex:1;min-width:0;">
+          <div style="font-size:14px;font-weight:700;color:#e8e8f0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${highlight(item.title, q)}</div>
+          <div style="font-size:11px;color:#6b6b80;font-family:'JetBrains Mono',monospace;margin-top:2px;">${item.sectionTitle}</div>
+        </div>
+        <svg width="14" height="14" fill="none" stroke="#6b6b80" stroke-width="2" viewBox="0 0 24 24" style="flex-shrink:0"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </div>
+    `).join('');
+  }
+
+  function highlight(text, q) {
+    if (!q) return text;
+    const idx = text.toLowerCase().indexOf(q);
+    if (idx === -1) return text;
+    return text.slice(0, idx) +
+      '<mark style="background:rgba(255,107,53,0.25);color:#ff6b35;border-radius:3px;">' +
+      text.slice(idx, idx + q.length) +
+      '</mark>' +
+      text.slice(idx + q.length);
+  }
+
+  function goTo(id) {
+    closeSearch();
+    const el = document.getElementById(id);
+    if (el) {
+      setTimeout(() => {
+        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        el.style.transition = 'box-shadow 0.4s';
+        el.style.boxShadow = '0 0 0 2px #ff6b35, 0 0 40px rgba(255,107,53,0.25)';
+        setTimeout(() => { el.style.boxShadow = ''; }, 2000);
+      }, 150);
+    }
+  }
+</script>
 
 </body>
 </html>
