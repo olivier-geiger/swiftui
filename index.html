@@ -1,0 +1,1913 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="SwiftUI Bootcamp : 76 leçons en français pour maîtriser SwiftUI et créer des applications iOS modernes de zéro à expert (layout, navigation, state, animations, formulaires, iOS 15+ et plus).">
+<meta name="robots" content="index,follow">
+<meta name="author" content="CodeWithOlivier">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:title" content="SwiftUI Bootcamp — Guide Complet">
+<meta property="og:description" content="Apprenez SwiftUI étape par étape avec 76 leçons couvrant les fondamentaux, le layout, la navigation, le state management, les animations, les formulaires et les nouveautés iOS 15+.">
+<meta property="og:site_name" content="SwiftUI Bootcamp">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="SwiftUI Bootcamp — Guide Complet">
+<meta name="twitter:description" content="Bootcamp SwiftUI complet en français : tout ce qu’il faut pour créer des apps iOS modernes.">
+<title>SwiftUI Bootcamp — Guide Complet</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Course",
+  "name": "SwiftUI Bootcamp — Guide Complet",
+  "description": "Bootcamp complet de 76 leçons pour apprendre SwiftUI en français : fondamentaux, layout, navigation, state & data, animations, formulaires et fonctionnalités iOS 15+.",
+  "inLanguage": "fr-FR",
+  "provider": {
+    "@type": "Person",
+    "name": "CodeWithOlivier"
+  }
+}
+</script>
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #111118;
+    --card: #16161f;
+    --border: #1e1e2e;
+    --accent: #ff6b35;
+    --accent2: #00d4aa;
+    --accent3: #a78bfa;
+    --text: #e8e8f0;
+    --muted: #6b6b80;
+    --code-bg: #0d1117;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Syne', sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 80px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    width: 800px; height: 800px;
+    background: radial-gradient(circle, rgba(255,107,53,0.12) 0%, transparent 70%);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(0,212,170,0.08) 0%, transparent 70%);
+    top: 20%; right: 10%;
+    pointer-events: none;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,107,53,0.1);
+    border: 1px solid rgba(255,107,53,0.3);
+    color: var(--accent);
+    padding: 6px 16px;
+    border-radius: 100px;
+    font-size: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.05em;
+    margin-bottom: 32px;
+    animation: fadeDown 0.6s ease both;
+  }
+
+  .badge-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+
+  h1 {
+    font-size: clamp(48px, 8vw, 100px);
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    margin-bottom: 24px;
+    animation: fadeDown 0.6s 0.1s ease both;
+  }
+
+  h1 .swift { color: var(--accent); }
+  h1 .ui { color: var(--text); }
+
+  .hero-sub {
+    font-size: 18px;
+    color: var(--muted);
+    max-width: 520px;
+    margin-bottom: 48px;
+    animation: fadeDown 0.6s 0.2s ease both;
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 48px;
+    animation: fadeDown 0.6s 0.3s ease both;
+  }
+
+  .stat { text-align: center; }
+  .stat-num {
+    font-size: 36px;
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 12px;
+    color: var(--muted);
+    font-family: 'JetBrains Mono', monospace;
+    margin-top: 4px;
+  }
+
+  .scroll-indicator {
+    position: absolute;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: var(--muted);
+    font-size: 11px;
+    font-family: 'JetBrains Mono', monospace;
+    animation: fadeIn 1s 1s ease both;
+  }
+
+  .scroll-line {
+    width: 1px; height: 48px;
+    background: linear-gradient(to bottom, var(--accent), transparent);
+    animation: scrollLine 2s ease-in-out infinite;
+  }
+
+  @keyframes scrollLine {
+    0% { transform: scaleY(0); transform-origin: top; }
+    50% { transform: scaleY(1); transform-origin: top; }
+    51% { transform: scaleY(1); transform-origin: bottom; }
+    100% { transform: scaleY(0); transform-origin: bottom; }
+  }
+
+  /* NAV */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10,10,15,0.9);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 24px;
+  }
+
+  .nav-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding: 0;
+  }
+
+  .nav-inner::-webkit-scrollbar { display: none; }
+
+  .nav-link {
+    display: inline-block;
+    padding: 16px 20px;
+    font-size: 13px;
+    color: var(--muted);
+    text-decoration: none;
+    font-family: 'JetBrains Mono', monospace;
+    white-space: nowrap;
+    border-bottom: 2px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  .nav-link:hover {
+    color: var(--text);
+    border-bottom-color: var(--accent);
+  }
+
+  /* SECTIONS */
+  .section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 80px 24px;
+  }
+
+  .section-header {
+    margin-bottom: 56px;
+  }
+
+  .section-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  h2 {
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+
+  h3 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+
+  /* CARDS GRID */
+  .grid-2 { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 24px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px;
+    transition: border-color 0.2s, transform 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), transparent);
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .card:hover {
+    border-color: rgba(255,107,53,0.3);
+    transform: translateY(-2px);
+  }
+
+  .card:hover::before { opacity: 1; }
+
+  .card-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+
+  .card-title {
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--text);
+  }
+
+  .card-desc {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+
+  /* CODE BLOCKS */
+  .code-block {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 24px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    line-height: 1.7;
+    overflow-x: auto;
+    margin: 12px 0;
+  }
+
+  .kw { color: #ff79c6; }
+  .type { color: #8be9fd; }
+  .str { color: #f1fa8c; }
+  .num { color: #bd93f9; }
+  .com { color: #6272a4; }
+  .fn { color: #50fa7b; }
+  .prop { color: #ffb86c; }
+
+  /* MODIFIER TAGS */
+  .modifier-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+  }
+
+  .mod-tag {
+    background: rgba(167,139,250,0.08);
+    border: 1px solid rgba(167,139,250,0.2);
+    color: var(--accent3);
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    transition: background 0.2s;
+    cursor: default;
+  }
+
+  .mod-tag:hover {
+    background: rgba(167,139,250,0.15);
+  }
+
+  .mod-tag.green {
+    background: rgba(0,212,170,0.08);
+    border-color: rgba(0,212,170,0.2);
+    color: var(--accent2);
+  }
+
+  .mod-tag.orange {
+    background: rgba(255,107,53,0.08);
+    border-color: rgba(255,107,53,0.2);
+    color: var(--accent);
+  }
+
+  /* CHAPTER DIVIDER */
+  .chapter-divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 32px 0 16px;
+    margin-bottom: 8px;
+  }
+
+  .chapter-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .chapter-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* BIG CARD */
+  .big-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 36px;
+    margin-bottom: 24px;
+  }
+
+  .big-card .header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    gap: 16px;
+  }
+
+  .chip {
+    background: rgba(255,107,53,0.15);
+    color: var(--accent);
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .chip.teal {
+    background: rgba(0,212,170,0.15);
+    color: var(--accent2);
+  }
+
+  .chip.purple {
+    background: rgba(167,139,250,0.15);
+    color: var(--accent3);
+  }
+
+  p.desc {
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.7;
+    margin-bottom: 20px;
+  }
+
+  /* TABLE */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    margin-top: 16px;
+  }
+
+  th {
+    text-align: left;
+    padding: 10px 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid var(--border);
+  }
+
+  td {
+    padding: 10px 16px;
+    border-bottom: 1px solid rgba(30,30,46,0.5);
+    vertical-align: top;
+  }
+
+  td:first-child {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--accent3);
+    font-size: 13px;
+    white-space: nowrap;
+  }
+
+  td:last-child { color: var(--muted); font-size: 13px; }
+
+  tr:hover td { background: rgba(255,255,255,0.02); }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 40px 24px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  /* SEPARATOR */
+  hr.sep {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 0;
+  }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  @media (max-width: 600px) {
+    .two-col { grid-template-columns: 1fr; }
+    .hero-stats { gap: 24px; }
+    .big-card { padding: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="badge"><span class="badge-dot"></span>76 leçons · Bootcamp complet</div>
+  <h1>
+    <span class="swift">Swift</span><span class="ui">UI</span><br>Bootcamp
+  </h1>
+  <p class="hero-sub">Tout ce que vous devez savoir pour créer des applications iOS modernes avec SwiftUI, de zéro à expert.</p>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-num">76</div><div class="stat-label">leçons</div></div>
+    <div class="stat"><div class="stat-num">200+</div><div class="stat-label">modifiers</div></div>
+    <div class="stat"><div class="stat-num">iOS 15+</div><div class="stat-label">compatibilité</div></div>
+  </div>
+  <div class="scroll-indicator">
+    <div class="scroll-line"></div>
+    scroll
+  </div>
+</section>
+
+<nav>
+  <div class="nav-inner">
+    <a class="nav-link" href="#fondamentaux">Fondamentaux</a>
+    <a class="nav-link" href="#layout">Layout</a>
+    <a class="nav-link" href="#navigation">Navigation</a>
+    <a class="nav-link" href="#state">State & Data</a>
+    <a class="nav-link" href="#animations">Animations</a>
+    <a class="nav-link" href="#formulaires">Formulaires</a>
+    <a class="nav-link" href="#ios15">iOS 15+</a>
+    <a class="nav-link" href="#avance">Avancé</a>
+  </div>
+</nav>
+
+<!-- ================================ FONDAMENTAUX ================================ -->
+<section class="section" id="fondamentaux">
+  <div class="section-header">
+    <div class="section-tag">// Leçons 1–9</div>
+    <h2>Fondamentaux</h2>
+  </div>
+
+  <!-- XCODE -->
+  <div class="big-card">
+    <div class="header">
+      <div>
+        <div class="card-num">#1 — Xcode & SwiftUI</div>
+        <h3>Comment utiliser Xcode dans un projet SwiftUI</h3>
+      </div>
+      <div class="chip">Setup</div>
+    </div>
+    <p class="desc">Xcode est l'IDE d'Apple pour développer des apps iOS. Un projet SwiftUI se compose d'une struct qui conforme au protocole <code style="color:var(--accent3)">View</code> et retourne du contenu via la propriété <code style="color:var(--accent3)">body</code>. Le canvas en temps réel (Preview) vous permet de voir les changements instantanément.</p>
+    <div class="code-block">
+<span class="kw">import</span> <span class="type">SwiftUI</span>
+
+<span class="kw">struct</span> <span class="type">ContentView</span>: <span class="type">View</span> {
+    <span class="kw">var</span> body: <span class="kw">some</span> <span class="type">View</span> {
+        <span class="type">Text</span>(<span class="str">"Hello, SwiftUI!"</span>)
+    }
+}
+
+<span class="com">// Preview dans Xcode</span>
+<span class="kw">#Preview</span> {
+    <span class="type">ContentView</span>()
+}
+</div>
+  </div>
+
+  <!-- TEXT -->
+  <div class="big-card">
+    <div class="header">
+      <div>
+        <div class="card-num">#2 — Text</div>
+        <h3>Ajout de texte dans SwiftUI</h3>
+      </div>
+      <div class="chip">Composant</div>
+    </div>
+    <p class="desc"><code style="color:var(--accent3)">Text</code> est la vue de base pour afficher du texte. Il supporte le Markdown natif et de nombreux modifiers pour contrôler la typographie, l'alignement et la mise en forme.</p>
+    <div class="code-block">
+<span class="type">Text</span>(<span class="str">"SwiftUI Bootcamp"</span>)
+    .<span class="fn">font</span>(.<span class="prop">largeTitle</span>)       <span class="com">// Taille de police system</span>
+    .<span class="fn">fontWeight</span>(.<span class="prop">bold</span>)        <span class="com">// Épaisseur</span>
+    .<span class="fn">foregroundColor</span>(.<span class="prop">orange</span>) <span class="com">// Couleur du texte</span>
+    .<span class="fn">multilineTextAlignment</span>(.<span class="prop">center</span>)
+    .<span class="fn">lineLimit</span>(<span class="num">2</span>)               <span class="com">// Nombre de lignes max</span>
+    .<span class="fn">minimumScaleFactor</span>(<span class="num">0.5</span>)   <span class="com">// Réduit si nécessaire</span>
+    .<span class="fn">italic</span>()                   <span class="com">// Italique</span>
+    .<span class="fn">underline</span>()               <span class="com">// Souligné</span>
+    .<span class="fn">strikethrough</span>()           <span class="com">// Barré</span>
+    .<span class="fn">kerning</span>(<span class="num">2</span>)                <span class="com">// Espacement lettres</span>
+</div>
+    <div class="modifier-grid">
+      <span class="mod-tag">.font()</span>
+      <span class="mod-tag">.fontWeight()</span>
+      <span class="mod-tag">.fontDesign()</span>
+      <span class="mod-tag">.foregroundColor()</span>
+      <span class="mod-tag">.foregroundStyle()</span>
+      <span class="mod-tag">.multilineTextAlignment()</span>
+      <span class="mod-tag">.lineLimit()</span>
+      <span class="mod-tag">.lineSpacing()</span>
+      <span class="mod-tag">.minimumScaleFactor()</span>
+      <span class="mod-tag">.truncationMode()</span>
+      <span class="mod-tag">.italic()</span>
+      <span class="mod-tag">.bold()</span>
+      <span class="mod-tag">.underline()</span>
+      <span class="mod-tag">.strikethrough()</span>
+      <span class="mod-tag">.kerning()</span>
+      <span class="mod-tag">.tracking()</span>
+      <span class="mod-tag">.baselineOffset()</span>
+      <span class="mod-tag">.textCase()</span>
+    </div>
+  </div>
+
+  <!-- SHAPES -->
+  <div class="big-card">
+    <div class="header">
+      <div>
+        <div class="card-num">#3 — Shapes</div>
+        <h3>Créer des formes dans SwiftUI</h3>
+      </div>
+      <div class="chip">Composant</div>
+    </div>
+    <p class="desc">SwiftUI propose plusieurs formes natives : <code style="color:var(--accent3)">Rectangle</code>, <code style="color:var(--accent3)">RoundedRectangle</code>, <code style="color:var(--accent3)">Circle</code>, <code style="color:var(--accent3)">Ellipse</code>, <code style="color:var(--accent3)">Capsule</code>. Elles peuvent être remplies, avoir un contour, ou les deux.</p>
+    <div class="two-col">
+      <div class="code-block">
+<span class="com">// Cercle rempli</span>
+<span class="type">Circle</span>()
+    .<span class="fn">fill</span>(.<span class="prop">orange</span>)
+    .<span class="fn">frame</span>(width: <span class="num">100</span>, height: <span class="num">100</span>)
+
+<span class="com">// Rectangle arrondi avec contour</span>
+<span class="type">RoundedRectangle</span>(cornerRadius: <span class="num">20</span>)
+    .<span class="fn">stroke</span>(.<span class="prop">blue</span>, lineWidth: <span class="num">4</span>)
+    .<span class="fn">frame</span>(width: <span class="num">200</span>, height: <span class="num">100</span>)
+</div>
+      <div>
+        <table>
+          <tr><th>Shape</th><th>Usage</th></tr>
+          <tr><td>Rectangle()</td><td>Carré / rectangle brut</td></tr>
+          <tr><td>RoundedRectangle(cornerRadius:)</td><td>Coins arrondis</td></tr>
+          <tr><td>Circle()</td><td>Cercle parfait</td></tr>
+          <tr><td>Ellipse()</td><td>Ovale</td></tr>
+          <tr><td>Capsule()</td><td>Pilule arrondie</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="modifier-grid">
+      <span class="mod-tag">.fill()</span>
+      <span class="mod-tag">.stroke()</span>
+      <span class="mod-tag">.strokeBorder()</span>
+      <span class="mod-tag">.trim(from:to:)</span>
+      <span class="mod-tag">.rotation()</span>
+      <span class="mod-tag">.scale()</span>
+    </div>
+  </div>
+
+  <!-- COLORS -->
+  <div class="big-card">
+    <div class="header">
+      <div>
+        <div class="card-num">#4 — Colors</div>
+        <h3>Couleurs, UIColor et hexadécimales</h3>
+      </div>
+      <div class="chip">Style</div>
+    </div>
+    <p class="desc">SwiftUI propose des couleurs système adaptatives (light/dark mode), des couleurs UIKit via <code style="color:var(--accent3)">Color(uiColor:)</code> et la possibilité de définir des couleurs via littéraux ou hexadécimaux via une extension.</p>
+    <div class="code-block">
+<span class="com">// Couleurs système</span>
+<span class="type">Color</span>.<span class="prop">primary</span>       <span class="com">// S'adapte light/dark</span>
+<span class="type">Color</span>.<span class="prop">secondary</span>
+<span class="type">Color</span>.<span class="prop">accentColor</span>   <span class="com">// Définie dans Assets</span>
+
+<span class="com">// Depuis UIKit</span>
+<span class="type">Color</span>(uiColor: .<span class="prop">systemBackground</span>)
+
+<span class="com">// Hexa via extension</span>
+<span class="kw">extension</span> <span class="type">Color</span> {
+    <span class="kw">init</span>(hex: <span class="type">String</span>) { <span class="com">/* ... */</span> }
+}
+<span class="type">Color</span>(hex: <span class="str">"#FF6B35"</span>)
+
+<span class="com">// Opacité</span>
+<span class="type">Color</span>.<span class="prop">blue</span>.<span class="fn">opacity</span>(<span class="num">0.3</span>)
+</div>
+  </div>
+
+  <!-- GRADIENTS -->
+  <div class="big-card">
+    <div class="header">
+      <div>
+        <div class="card-num">#5 — Gradients</div>
+        <h3>Linear, Radial et Angular Gradients</h3>
+      </div>
+      <div class="chip">Style</div>
+    </div>
+    <div class="two-col">
+      <div class="code-block">
+<span class="com">// Linear</span>
+<span class="type">LinearGradient</span>(
+    colors: [.<span class="prop">orange</span>, .<span class="prop">purple</span>],
+    startPoint: .<span class="prop">topLeading</span>,
+    endPoint: .<span class="prop">bottomTrailing</span>
+)
+
+<span class="com">// Radial</span>
+<span class="type">RadialGradient</span>(
+    colors: [.<span class="prop">white</span>, .<span class="prop">blue</span>],
+    center: .<span class="prop">center</span>,
+    startRadius: <span class="num">5</span>,
+    endRadius: <span class="num">200</span>
+)
+
+<span class="com">// Angular</span>
+<span class="type">AngularGradient</span>(
+    colors: [.<span class="prop">red</span>, .<span class="prop">yellow</span>, .<span class="prop">green</span>, .<span class="prop">red</span>],
+    center: .<span class="prop">center</span>
+)
+</div>
+      <div>
+        <p class="desc" style="margin-bottom:12px">Un gradient peut s'utiliser comme <strong style="color:var(--text)">fill</strong> d'une forme, comme <strong style="color:var(--text)">background</strong>, ou comme valeur dans <code style="color:var(--accent3)">.foregroundStyle()</code>.</p>
+        <div class="code-block" style="font-size:12px">
+<span class="type">Text</span>(<span class="str">"Gradient Text"</span>)
+    .<span class="fn">foregroundStyle</span>(
+        <span class="type">LinearGradient</span>(
+            colors: [.<span class="prop">orange</span>, .<span class="prop">pink</span>],
+            startPoint: .<span class="prop">leading</span>,
+            endPoint: .<span class="prop">trailing</span>
+        )
+    )
+</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SYSTEM ICONS -->
+  <div class="big-card">
+    <div class="header">
+      <div>
+        <div class="card-num">#6 — System Icons</div>
+        <h3>SF Symbols, icônes système et multicolores</h3>
+      </div>
+      <div class="chip teal">SF Symbols</div>
+    </div>
+    <p class="desc">Apple fournit plus de 5000 icônes vectorielles via SF Symbols, accessibles avec <code style="color:var(--accent3)">Image(systemName:)</code>. Elles s'adaptent automatiquement à la Dynamic Type et supportent plusieurs modes de rendu.</p>
+    <div class="code-block">
+<span class="com">// Icône simple</span>
+<span class="type">Image</span>(systemName: <span class="str">"heart.fill"</span>)
+    .<span class="fn">font</span>(.<span class="prop">largeTitle</span>)
+    .<span class="fn">foregroundColor</span>(.<span class="prop">red</span>)
+
+<span class="com">// Modes de rendu</span>
+<span class="type">Image</span>(systemName: <span class="str">"folder.badge.plus"</span>)
+    .<span class="fn">symbolRenderingMode</span>(.<span class="prop">multicolor</span>)
+
+<span class="type">Image</span>(systemName: <span class="str">"circle.hexagongrid.fill"</span>)
+    .<span class="fn">symbolRenderingMode</span>(.<span class="prop">hierarchical</span>)
+    .<span class="fn">foregroundStyle</span>(.<span class="prop">blue</span>)
+
+<span class="com">// Variante</span>
+<span class="type">Image</span>(systemName: <span class="str">"star"</span>)
+    .<span class="fn">symbolVariant</span>(.<span class="prop">fill</span>)
+</div>
+    <div class="modifier-grid">
+      <span class="mod-tag">.symbolRenderingMode(.monochrome)</span>
+      <span class="mod-tag">.symbolRenderingMode(.multicolor)</span>
+      <span class="mod-tag">.symbolRenderingMode(.hierarchical)</span>
+      <span class="mod-tag">.symbolRenderingMode(.palette)</span>
+      <span class="mod-tag">.symbolVariant(.fill)</span>
+      <span class="mod-tag">.symbolVariant(.circle)</span>
+      <span class="mod-tag">.symbolEffect(.bounce)</span>
+      <span class="mod-tag">.imageScale(.large)</span>
+    </div>
+  </div>
+
+  <!-- IMAGES -->
+  <div class="big-card">
+    <div class="header">
+      <div>
+        <div class="card-num">#7 — Images</div>
+        <h3>Ajouter des images à une application SwiftUI</h3>
+      </div>
+      <div class="chip">Composant</div>
+    </div>
+    <p class="desc"><code style="color:var(--accent3)">Image</code> charge des assets depuis le catalogue, le bundle ou le réseau. <code style="color:var(--accent3)">.resizable()</code> est indispensable avant tout redimensionnement. <code style="color:var(--accent3)">AsyncImage</code> gère les images distantes.</p>
+    <div class="code-block">
+<span class="com">// Image locale depuis Assets</span>
+<span class="type">Image</span>(<span class="str">"mon_image"</span>)
+    .<span class="fn">resizable</span>()
+    .<span class="fn">scaledToFit</span>()                       <span class="com">// Garde le ratio</span>
+    .<span class="fn">frame</span>(width: <span class="num">200</span>, height: <span class="num">200</span>)
+    .<span class="fn">clipShape</span>(<span class="type">Circle</span>())                  <span class="com">// Découpe en cercle</span>
+    .<span class="fn">overlay</span>(<span class="type">Circle</span>().<span class="fn">stroke</span>(.<span class="prop">white</span>, lineWidth: <span class="num">4</span>))
+
+<span class="com">// Image distante</span>
+<span class="type">AsyncImage</span>(url: <span class="type">URL</span>(string: url)) { image <span class="kw">in</span>
+    image.<span class="fn">resizable</span>().<span class="fn">scaledToFill</span>()
+} placeholder: {
+    <span class="type">ProgressView</span>()
+}
+</div>
+    <div class="modifier-grid">
+      <span class="mod-tag">.resizable()</span>
+      <span class="mod-tag">.scaledToFit()</span>
+      <span class="mod-tag">.scaledToFill()</span>
+      <span class="mod-tag">.aspectRatio(contentMode:)</span>
+      <span class="mod-tag">.clipShape()</span>
+      <span class="mod-tag">.cornerRadius()</span>
+      <span class="mod-tag">.renderingMode(.template)</span>
+      <span class="mod-tag">.interpolation()</span>
+    </div>
+  </div>
+
+  <!-- FRAMES & ALIGNMENTS -->
+  <div class="big-card">
+    <div class="header">
+      <div>
+        <div class="card-num">#8 — Frames & Alignments</div>
+        <h3>Cadres, tailles et alignements</h3>
+      </div>
+      <div class="chip">Layout</div>
+    </div>
+    <p class="desc"><code style="color:var(--accent3)">.frame()</code> est l'un des modifiers les plus importants. Il définit des contraintes de taille. L'alignement <code style="color:var(--accent3)">alignment:</code> positionne le contenu à l'intérieur du cadre.</p>
+    <div class="two-col">
+      <div class="code-block">
+<span class="com">// Taille fixe</span>
+.<span class="fn">frame</span>(width: <span class="num">200</span>, height: <span class="num">100</span>)
+
+<span class="com">// Taille flexible</span>
+.<span class="fn">frame</span>(
+    minWidth: <span class="num">100</span>,
+    idealWidth: <span class="num">200</span>,
+    maxWidth: .<span class="prop">infinity</span>
+)
+
+<span class="com">// Pleine largeur</span>
+.<span class="fn">frame</span>(maxWidth: .<span class="prop">infinity</span>,
+       alignment: .<span class="prop">leading</span>)
+
+<span class="com">// Plein écran</span>
+.<span class="fn">frame</span>(
+    maxWidth: .<span class="prop">infinity</span>,
+    maxHeight: .<span class="prop">infinity</span>
+)
+</div>
+      <div>
+        <table>
+          <tr><th>Alignment</th><th></th></tr>
+          <tr><td>.leading</td><td>Gauche</td></tr>
+          <tr><td>.trailing</td><td>Droite</td></tr>
+          <tr><td>.center</td><td>Centré</td></tr>
+          <tr><td>.top</td><td>Haut</td></tr>
+          <tr><td>.bottom</td><td>Bas</td></tr>
+          <tr><td>.topLeading</td><td>Haut gauche</td></tr>
+          <tr><td>.bottomTrailing</td><td>Bas droite</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- BACKGROUNDS & OVERLAYS -->
+  <div class="big-card">
+    <div class="header">
+      <div>
+        <div class="card-num">#9 — Backgrounds & Overlays</div>
+        <h3>Arrière-plans et superpositions</h3>
+      </div>
+      <div class="chip">Style</div>
+    </div>
+    <p class="desc"><code style="color:var(--accent3)">.background()</code> place un contenu derrière une vue, <code style="color:var(--accent3)">.overlay()</code> le place dessus. Les deux acceptent n'importe quelle <code style="color:var(--accent3)">View</code> ou <code style="color:var(--accent3)">ShapeStyle</code>.</p>
+    <div class="code-block">
+<span class="type">Text</span>(<span class="str">"Hello"</span>)
+    .<span class="fn">padding</span>()
+    <span class="com">// Background avec forme</span>
+    .<span class="fn">background</span>(
+        <span class="type">RoundedRectangle</span>(cornerRadius: <span class="num">12</span>)
+            .<span class="fn">fill</span>(.<span class="prop">blue</span>)
+            .<span class="fn">shadow</span>(radius: <span class="num">10</span>)
+    )
+    <span class="com">// Overlay avec icône</span>
+    .<span class="fn">overlay</span>(alignment: .<span class="prop">topTrailing</span>) {
+        <span class="type">Image</span>(systemName: <span class="str">"star.fill"</span>)
+            .<span class="fn">offset</span>(x: <span class="num">8</span>, y: -<span class="num">8</span>)
+    }
+</div>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- ================================ LAYOUT ================================ -->
+<section class="section" id="layout">
+  <div class="section-header">
+    <div class="section-tag">// Leçons 10–18</div>
+    <h2>Layout & Stacks</h2>
+  </div>
+
+  <div class="grid-2">
+    <!-- VSTACK HSTACK ZSTACK -->
+    <div class="big-card" style="margin-bottom:0">
+      <div class="header">
+        <div>
+          <div class="card-num">#10 — Stacks</div>
+          <h3>VStack, HStack, ZStack</h3>
+        </div>
+        <div class="chip">Layout</div>
+      </div>
+      <p class="desc">Les trois conteneurs fondamentaux de SwiftUI :</p>
+      <div class="code-block" style="font-size:12px">
+<span class="com">// Vertical</span>
+<span class="type">VStack</span>(alignment: .<span class="prop">leading</span>, spacing: <span class="num">16</span>) {
+    <span class="type">Text</span>(<span class="str">"Titre"</span>)
+    <span class="type">Text</span>(<span class="str">"Sous-titre"</span>)
+}
+
+<span class="com">// Horizontal</span>
+<span class="type">HStack</span>(spacing: <span class="num">12</span>) {
+    <span class="type">Image</span>(systemName: <span class="str">"star"</span>)
+    <span class="type">Text</span>(<span class="str">"Favori"</span>)
+}
+
+<span class="com">// Superposition (Z-axis)</span>
+<span class="type">ZStack</span>(alignment: .<span class="prop">bottomTrailing</span>) {
+    <span class="type">Image</span>(<span class="str">"photo"</span>)
+    <span class="type">Text</span>(<span class="str">"Caption"</span>).<span class="fn">padding</span>(<span class="num">4</span>)
+}
+</div>
+    </div>
+
+    <!-- PADDING / SPACER -->
+    <div class="big-card" style="margin-bottom:0">
+      <div class="header">
+        <div>
+          <div class="card-num">#11–12 — Padding & Spacer</div>
+          <h3>Espacement et remplissage</h3>
+        </div>
+        <div class="chip">Layout</div>
+      </div>
+      <div class="code-block" style="font-size:12px">
+<span class="com">// Padding uniforme</span>
+.<span class="fn">padding</span>()             <span class="com">// Valeur par défaut</span>
+.<span class="fn">padding</span>(<span class="num">20</span>)           <span class="com">// Valeur custom</span>
+.<span class="fn">padding</span>(.<span class="prop">horizontal</span>, <span class="num">16</span>)
+.<span class="fn">padding</span>([.<span class="prop">top</span>, .<span class="prop">bottom</span>], <span class="num">8</span>)
+
+<span class="com">// Spacer : pousse les vues</span>
+<span class="type">HStack</span> {
+    <span class="type">Text</span>(<span class="str">"Gauche"</span>)
+    <span class="type">Spacer</span>()
+    <span class="type">Text</span>(<span class="str">"Droite"</span>)
+}
+
+<span class="com">// Spacer avec hauteur min</span>
+<span class="type">Spacer</span>(minLength: <span class="num">40</span>)
+</div>
+    </div>
+  </div>
+
+  <div class="chapter-divider">
+    <div class="chapter-line"></div>
+    <span class="chapter-label">Vues avancées</span>
+    <div class="chapter-line"></div>
+  </div>
+
+  <div class="grid-3">
+    <div class="card">
+      <div class="card-num">#13 — Inits & Enums</div>
+      <div class="card-title">Initialiseurs & Énumérations</div>
+      <div class="card-desc">Créer des composants réutilisables avec des init custom et des enums pour les variantes (taille, style, couleur).</div>
+      <div class="code-block" style="font-size:12px">
+<span class="kw">enum</span> <span class="type">ButtonType</span> {
+    <span class="kw">case</span> <span class="prop">primary</span>
+    <span class="kw">case</span> <span class="prop">secondary</span>
+}
+
+<span class="kw">struct</span> <span class="type">MyButton</span>: <span class="type">View</span> {
+    <span class="kw">let</span> type: <span class="type">ButtonType</span>
+    <span class="kw">init</span>(_ type: <span class="type">ButtonType</span>) {
+        <span class="kw">self</span>.type = type
+    }
+}
+</div>
+    </div>
+
+    <div class="card">
+      <div class="card-num">#14 — ForEach</div>
+      <div class="card-title">Boucles ForEach</div>
+      <div class="card-desc">Générer des vues en itérant sur une collection. Les éléments doivent être <code style="color:var(--accent3)">Identifiable</code> ou utiliser <code style="color:var(--accent3)">id: \.self</code>.</div>
+      <div class="code-block" style="font-size:12px">
+<span class="kw">let</span> fruits = [<span class="str">"🍎"</span>, <span class="str">"🍋"</span>, <span class="str">"🍇"</span>]
+
+<span class="type">ForEach</span>(fruits, id: \.<span class="prop">self</span>) { fruit <span class="kw">in</span>
+    <span class="type">Text</span>(fruit)
+}
+
+<span class="com">// Range</span>
+<span class="type">ForEach</span>(<span class="num">0</span>..&lt;<span class="num">5</span>) { i <span class="kw">in</span>
+    <span class="type">Text</span>(<span class="str">"Item \(i)"</span>)
+}
+</div>
+    </div>
+
+    <div class="card">
+      <div class="card-num">#15 — ScrollView</div>
+      <div class="card-title">Défilement</div>
+      <div class="card-desc">Envelopper un contenu dans un ScrollView pour activer le défilement vertical ou horizontal.</div>
+      <div class="code-block" style="font-size:12px">
+<span class="type">ScrollView</span>(.vertical, showsIndicators: <span class="kw">false</span>) {
+    <span class="type">VStack</span>(spacing: <span class="num">20</span>) {
+        <span class="type">ForEach</span>(<span class="num">0</span>..&lt;<span class="num">20</span>) { i <span class="kw">in</span>
+            <span class="type">Text</span>(<span class="str">"Row \(i)"</span>)
+        }
+    }
+}
+
+<span class="com">// Horizontal</span>
+<span class="type">ScrollView</span>(.<span class="prop">horizontal</span>) { ... }
+</div>
+    </div>
+
+    <div class="card">
+      <div class="card-num">#16 — LazyVGrid / LazyHGrid</div>
+      <div class="card-title">Grilles paresseuses</div>
+      <div class="card-desc">Créer des mises en page en grille. <code style="color:var(--accent3)">GridItem</code> définit le comportement de chaque colonne ou ligne.</div>
+      <div class="code-block" style="font-size:12px">
+<span class="kw">let</span> columns = [
+    <span class="type">GridItem</span>(.<span class="prop">flexible</span>()),
+    <span class="type">GridItem</span>(.<span class="prop">flexible</span>()),
+    <span class="type">GridItem</span>(.<span class="prop">fixed</span>(<span class="num">80</span>))
+]
+
+<span class="type">LazyVGrid</span>(columns: columns, spacing: <span class="num">16</span>) {
+    <span class="type">ForEach</span>(<span class="num">0</span>..&lt;<span class="num">20</span>) { i <span class="kw">in</span>
+        <span class="type">Color</span>.<span class="prop">orange</span>.<span class="fn">frame</span>(height: <span class="num">80</span>)
+    }
+}
+</div>
+    </div>
+
+    <div class="card">
+      <div class="card-num">#17 — Safe Area</div>
+      <div class="card-title">Zone de sécurité</div>
+      <div class="card-desc">Gérer les zones de sécurité (encoche, Dynamic Island, barre du bas) pour étendre ou respecter les marges.</div>
+      <div class="code-block" style="font-size:12px">
+<span class="com">// Ignorer la safe area</span>
+.<span class="fn">ignoresSafeArea</span>()
+.<span class="fn">ignoresSafeArea</span>(edges: .<span class="prop">top</span>)
+.<span class="fn">ignoresSafeArea</span>(edges: .<span class="prop">bottom</span>)
+
+<span class="com">// Ajouter du padding safe area</span>
+.<span class="fn">safeAreaInset</span>(edge: .<span class="prop">bottom</span>) {
+    <span class="type">Button</span>(<span class="str">"CTA"</span>) { }
+}
+</div>
+    </div>
+
+    <div class="card">
+      <div class="card-num">#18 — Buttons</div>
+      <div class="card-title">Boutons</div>
+      <div class="card-desc">Créer des boutons interactifs avec styles personnalisés via <code style="color:var(--accent3)">ButtonStyle</code> ou les styles système.</div>
+      <div class="code-block" style="font-size:12px">
+<span class="type">Button</span>(action: {
+    print(<span class="str">"Appuyé"</span>)
+}) {
+    <span class="type">Text</span>(<span class="str">"Valider"</span>)
+        .<span class="fn">padding</span>()
+        .<span class="fn">background</span>(.<span class="prop">blue</span>)
+}
+
+<span class="com">// Styles intégrés</span>
+.<span class="fn">buttonStyle</span>(.<span class="prop">bordered</span>)
+.<span class="fn">buttonStyle</span>(.<span class="prop">borderedProminent</span>)
+.<span class="fn">buttonStyle</span>(.<span class="prop">plain</span>)
+</div>
+    </div>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- ================================ STATE ================================ -->
+<section class="section" id="state">
+  <div class="section-header">
+    <div class="section-tag">// Leçons 19–22 & 49–53</div>
+    <h2>State & Gestion des données</h2>
+  </div>
+
+  <div class="grid-2">
+    <div class="big-card" style="margin-bottom:0">
+      <div class="header">
+        <div>
+          <div class="card-num">#19 — @State</div>
+          <h3>État local d'une vue</h3>
+        </div>
+        <div class="chip purple">Property Wrapper</div>
+      </div>
+      <p class="desc"><code style="color:var(--accent3)">@State</code> est utilisé pour les données locales d'une vue. Quand la valeur change, SwiftUI re-render automatiquement la vue. Toujours utiliser pour les types valeurs simples.</p>
+      <div class="code-block">
+<span class="kw">@State private var</span> count: <span class="type">Int</span> = <span class="num">0</span>
+<span class="kw">@State private var</span> isShowing: <span class="type">Bool</span> = <span class="kw">false</span>
+<span class="kw">@State private var</span> text: <span class="type">String</span> = <span class="str">""</span>
+
+<span class="kw">var</span> body: <span class="kw">some</span> <span class="type">View</span> {
+    <span class="type">VStack</span> {
+        <span class="type">Text</span>(<span class="str">"Count: \(count)"</span>)
+        <span class="type">Button</span>(<span class="str">"+"</span>) { count += <span class="num">1</span> }
+    }
+}
+</div>
+    </div>
+
+    <div class="big-card" style="margin-bottom:0">
+      <div class="header">
+        <div>
+          <div class="card-num">#22 — @Binding</div>
+          <h3>Lien bidirectionnel</h3>
+        </div>
+        <div class="chip purple">Property Wrapper</div>
+      </div>
+      <p class="desc"><code style="color:var(--accent3)">@Binding</code> crée une référence vers une valeur <code style="color:var(--accent3)">@State</code> du parent. Permet à un composant enfant de modifier l'état du parent sans en être propriétaire.</p>
+      <div class="code-block">
+<span class="com">// Vue enfant</span>
+<span class="kw">struct</span> <span class="type">ChildView</span>: <span class="type">View</span> {
+    <span class="kw">@Binding var</span> isOn: <span class="type">Bool</span>
+    <span class="kw">var</span> body: <span class="kw">some</span> <span class="type">View</span> {
+        <span class="type">Toggle</span>(<span class="str">"Active"</span>, isOn: $isOn)
+    }
+}
+
+<span class="com">// Vue parent</span>
+<span class="kw">@State private var</span> isOn = <span class="kw">false</span>
+<span class="type">ChildView</span>(isOn: $isOn) <span class="com">// Passe le binding avec $</span>
+</div>
+    </div>
+  </div>
+
+  <div class="chapter-divider">
+    <div class="chapter-line"></div>
+    <span class="chapter-label">Architecture</span>
+    <div class="chapter-line"></div>
+  </div>
+
+  <div class="grid-2">
+    <div class="big-card" style="margin-bottom:0">
+      <div class="header">
+        <div>
+          <div class="card-num">#50 — @ObservableObject / @StateObject</div>
+          <h3>ViewModel partagé</h3>
+        </div>
+        <div class="chip purple">Architecture</div>
+      </div>
+      <p class="desc">Pour iOS 16 et antérieur. Un <code style="color:var(--accent3)">ObservableObject</code> est une classe dont les propriétés marquées <code style="color:var(--accent3)">@Published</code> déclenchent une mise à jour des vues abonnées.</p>
+      <div class="code-block" style="font-size:12px">
+<span class="kw">class</span> <span class="type">MyViewModel</span>: <span class="type">ObservableObject</span> {
+    <span class="kw">@Published var</span> title: <span class="type">String</span> = <span class="str">"Hello"</span>
+    <span class="kw">@Published var</span> items: [<span class="type">String</span>] = []
+
+    <span class="kw">func</span> <span class="fn">fetchData</span>() {
+        items = [<span class="str">"Item 1"</span>, <span class="str">"Item 2"</span>]
+    }
+}
+
+<span class="kw">struct</span> <span class="type">MyView</span>: <span class="type">View</span> {
+    <span class="com">// Crée ET possède le ViewModel</span>
+    <span class="kw">@StateObject private var</span> vm = <span class="type">MyViewModel</span>()
+    <span class="com">// Observe sans posséder</span>
+    <span class="com">// @ObservedObject var vm: MyViewModel</span>
+}
+</div>
+    </div>
+
+    <div class="big-card" style="margin-bottom:0">
+      <div class="header">
+        <div>
+          <div class="card-num">#51–52–76 — @EnvironmentObject / @AppStorage / @Observable</div>
+          <h3>Données globales</h3>
+        </div>
+        <div class="chip purple">Architecture</div>
+      </div>
+      <div class="code-block" style="font-size:12px">
+<span class="com">// @EnvironmentObject : partage dans toute l'arborescence</span>
+<span class="type">ContentView</span>()
+    .<span class="fn">environmentObject</span>(<span class="type">MyViewModel</span>())
+<span class="com">// Dans une sous-vue :</span>
+<span class="kw">@EnvironmentObject var</span> vm: <span class="type">MyViewModel</span>
+
+<span class="com">// @AppStorage : UserDefaults en SwiftUI</span>
+<span class="kw">@AppStorage</span>(<span class="str">"hasSeenOnboarding"</span>) <span class="kw">var</span>
+    hasSeenOnboarding: <span class="type">Bool</span> = <span class="kw">false</span>
+
+<span class="com">// @Observable (iOS 17+) : plus simple</span>
+<span class="kw">@Observable</span>
+<span class="kw">class</span> <span class="type">AppModel</span> {
+    <span class="kw">var</span> count: <span class="type">Int</span> = <span class="num">0</span> <span class="com">// automatiquement observé</span>
+}
+<span class="com">// Dans la vue :</span>
+<span class="kw">@State private var</span> model = <span class="type">AppModel</span>()
+</div>
+    </div>
+  </div>
+
+  <div class="chapter-divider">
+    <div class="chapter-line"></div>
+    <span class="chapter-label">Conditionnels Swift</span>
+    <div class="chapter-line"></div>
+  </div>
+
+  <div class="grid-3">
+    <div class="card">
+      <div class="card-num">#23 — If-Else</div>
+      <div class="card-title">Instructions conditionnelles</div>
+      <div class="code-block" style="font-size:12px">
+<span class="kw">@State private var</span> isLoggedIn = <span class="kw">false</span>
+
+<span class="kw">var</span> body: <span class="kw">some</span> <span class="type">View</span> {
+    <span class="kw">if</span> isLoggedIn {
+        <span class="type">HomeView</span>()
+    } <span class="kw">else</span> {
+        <span class="type">LoginView</span>()
+    }
+}
+</div>
+    </div>
+
+    <div class="card">
+      <div class="card-num">#24 — Ternary</div>
+      <div class="card-title">Opérateurs ternaires dans les modifiers</div>
+      <div class="code-block" style="font-size:12px">
+<span class="type">Text</span>(<span class="str">"Status"</span>)
+    .<span class="fn">foregroundColor</span>(
+        isActive ? .<span class="prop">green</span> : .<span class="prop">red</span>
+    )
+    .<span class="fn">fontWeight</span>(
+        isSelected ? .<span class="prop">bold</span> : .<span class="prop">regular</span>
+    )
+    .<span class="fn">scaleEffect</span>(
+        isPressed ? <span class="num">0.95</span> : <span class="num">1.0</span>
+    )
+</div>
+    </div>
+
+    <div class="card">
+      <div class="card-num">#47 — If-Let & Guard</div>
+      <div class="card-title">Déballage sécurisé d'optionnels</div>
+      <div class="code-block" style="font-size:12px">
+<span class="kw">let</span> name: <span class="type">String</span>? = <span class="kw">nil</span>
+
+<span class="com">// if-let</span>
+<span class="kw">if let</span> name = name {
+    <span class="type">Text</span>(name)
+} <span class="kw">else</span> {
+    <span class="type">Text</span>(<span class="str">"Inconnu"</span>)
+}
+
+<span class="com">// guard-let dans une func</span>
+<span class="kw">guard let</span> value = optional <span class="kw">else</span> {
+    <span class="kw">return</span>
+}
+</div>
+    </div>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- ================================ NAVIGATION ================================ -->
+<section class="section" id="navigation">
+  <div class="section-header">
+    <div class="section-tag">// Leçons 29–31 & 62–63</div>
+    <h2>Navigation</h2>
+  </div>
+
+  <div class="grid-2">
+    <div class="big-card" style="margin-bottom:0">
+      <div class="header">
+        <div>
+          <div class="card-num">#30 — NavigationView → #62 NavigationStack</div>
+          <h3>Navigation hiérarchique</h3>
+        </div>
+        <div class="chip teal">Navigation</div>
+      </div>
+      <p class="desc"><code style="color:var(--accent3)">NavigationStack</code> (iOS 16+) remplace <code style="color:var(--accent3)">NavigationView</code>. Il supporte un path programmatique pour une navigation complexe. <code style="color:var(--accent3)">navigationDestination</code> remplace <code style="color:var(--accent3)">NavigationLink(destination:)</code>.</p>
+      <div class="code-block" style="font-size:12px">
+<span class="com">// iOS 16+ avec NavigationStack</span>
+<span class="kw">@State private var</span> path = [<span class="type">String</span>]()
+
+<span class="type">NavigationStack</span>(path: $path) {
+    <span class="type">List</span>(items) { item <span class="kw">in</span>
+        <span class="type">NavigationLink</span>(item.name, value: item)
+    }
+    .<span class="fn">navigationTitle</span>(<span class="str">"Accueil"</span>)
+    .<span class="fn">navigationDestination</span>(for: <span class="type">Item</span>.self) { item <span class="kw">in</span>
+        <span class="type">DetailView</span>(item: item)
+    }
+}
+</div>
+    </div>
+
+    <div class="big-card" style="margin-bottom:0">
+      <div class="header">
+        <div>
+          <div class="card-num">#28–29 — Sheets & Popovers</div>
+          <h3>Feuilles contextuelles</h3>
+        </div>
+        <div class="chip teal">Navigation</div>
+      </div>
+      <div class="code-block" style="font-size:12px">
+<span class="kw">@State private var</span> showSheet = <span class="kw">false</span>
+<span class="kw">@State private var</span> showFull = <span class="kw">false</span>
+
+<span class="type">Button</span>(<span class="str">"Ouvrir"</span>) { showSheet = <span class="kw">true</span> }
+    .<span class="fn">sheet</span>(isPresented: $showSheet) {
+        <span class="type">DetailSheet</span>()
+            .<span class="fn">presentationDetents</span>([.<span class="prop">medium</span>, .<span class="prop">large</span>])
+            .<span class="fn">presentationDragIndicator</span>(.<span class="prop">visible</span>)
+    }
+
+<span class="com">// Plein écran</span>
+.<span class="fn">fullScreenCover</span>(isPresented: $showFull) {
+    <span class="type">FullScreenView</span>()
+}
+
+<span class="com">// Redimensionnable (iOS 16+)</span>
+.<span class="fn">presentationDetents</span>([
+    .<span class="prop">fraction</span>(<span class="num">0.3</span>),
+    .<span class="prop">medium</span>,
+    .<span class="prop">large</span>
+])
+</div>
+    </div>
+  </div>
+
+  <div class="grid-3" style="margin-top:20px">
+    <div class="card">
+      <div class="card-num">#31 — Lists</div>
+      <div class="card-title">Listes dynamiques</div>
+      <div class="code-block" style="font-size:12px">
+<span class="type">List</span> {
+    <span class="type">Section</span>(header: <span class="type">Text</span>(<span class="str">"Section"</span>)) {
+        <span class="type">ForEach</span>(items) { item <span class="kw">in</span>
+            <span class="type">Text</span>(item.name)
+        }
+        .<span class="fn">onDelete</span>(perform: delete)
+        .<span class="fn">onMove</span>(perform: move)
+    }
+}
+.<span class="fn">listStyle</span>(.<span class="prop">insetGrouped</span>)
+</div>
+      <div class="modifier-grid" style="margin-top:8px">
+        <span class="mod-tag green">.listStyle(.plain)</span>
+        <span class="mod-tag green">.listStyle(.grouped)</span>
+        <span class="mod-tag green">.listStyle(.insetGrouped)</span>
+        <span class="mod-tag green">.listStyle(.sidebar)</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-num">#32–34 — Alerts & Menus</div>
+      <div class="card-title">Alertes, ActionSheets, ContextMenu</div>
+      <div class="code-block" style="font-size:12px">
+<span class="com">// Alert</span>
+.<span class="fn">alert</span>(<span class="str">"Confirmer ?"</span>, isPresented: $show) {
+    <span class="type">Button</span>(<span class="str">"Oui"</span>, role: .<span class="prop">destructive</span>) { }
+    <span class="type">Button</span>(<span class="str">"Non"</span>, role: .<span class="prop">cancel</span>) { }
+}
+
+<span class="com">// ContextMenu (appui long)</span>
+.<span class="fn">contextMenu</span> {
+    <span class="type">Button</span>(<span class="str">"Copier"</span>) { }
+    <span class="type">Button</span>(<span class="str">"Supprimer"</span>, role: .<span class="prop">destructive</span>) { }
+}
+</div>
+    </div>
+
+    <div class="card">
+      <div class="card-num">#43 — TabView</div>
+      <div class="card-title">Barre d'onglets</div>
+      <div class="code-block" style="font-size:12px">
+<span class="type">TabView</span>(selection: $selectedTab) {
+    <span class="type">HomeView</span>()
+        .<span class="fn">tabItem</span> {
+            <span class="type">Label</span>(<span class="str">"Home"</span>, systemImage: <span class="str">"house"</span>)
+        }
+        .<span class="fn">tag</span>(<span class="num">0</span>)
+        .<span class="fn">badge</span>(<span class="num">3</span>) <span class="com">// iOS 15+</span>
+}
+
+<span class="com">// Page view style</span>
+.<span class="fn">tabViewStyle</span>(.<span class="prop">page</span>)
+</div>
+    </div>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- ================================ ANIMATIONS ================================ -->
+<section class="section" id="animations">
+  <div class="section-header">
+    <div class="section-tag">// Leçons 25–27 & 67</div>
+    <h2>Animations & Transitions</h2>
+  </div>
+
+  <div class="big-card">
+    <div class="header">
+      <div>
+        <div class="card-num">#25 — Animation</div>
+        <h3>Animations implicites et explicites</h3>
+      </div>
+      <div class="chip">Animation</div>
+    </div>
+    <div class="two-col">
+      <div>
+        <p class="desc">SwiftUI anime automatiquement les changements de valeurs attachés à <code style="color:var(--accent3)">.animation()</code>. Pour plus de contrôle, utilisez <code style="color:var(--accent3)">withAnimation {}</code>.</p>
+        <div class="code-block" style="font-size:12px">
+<span class="com">// Implicite</span>
+<span class="type">Circle</span>()
+    .<span class="fn">scaleEffect</span>(isActive ? <span class="num">1.5</span> : <span class="num">1.0</span>)
+    .<span class="fn">animation</span>(.<span class="prop">spring</span>(), value: isActive)
+
+<span class="com">// Explicite</span>
+<span class="type">Button</span>(<span class="str">"Go"</span>) {
+    <span class="fn">withAnimation</span>(.<span class="prop">easeInOut</span>(duration: <span class="num">0.3</span>)) {
+        isVisible.<span class="fn">toggle</span>()
+    }
+}
+</div>
+      </div>
+      <div>
+        <table>
+          <tr><th>Courbe</th><th>Comportement</th></tr>
+          <tr><td>.linear</td><td>Vitesse constante</td></tr>
+          <tr><td>.easeIn</td><td>Commence lentement</td></tr>
+          <tr><td>.easeOut</td><td>Finit lentement</td></tr>
+          <tr><td>.easeInOut</td><td>Les deux</td></tr>
+          <tr><td>.spring()</td><td>Rebond physique</td></tr>
+          <tr><td>.bouncy</td><td>iOS 17+</td></tr>
+          <tr><td>.interactiveSpring</td><td>Réactif au geste</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="big-card">
+    <div class="header">
+      <div>
+        <div class="card-num">#27 — Transition</div>
+        <h3>Transitions d'apparition/disparition</h3>
+      </div>
+      <div class="chip">Animation</div>
+    </div>
+    <div class="code-block">
+<span class="kw">if</span> isVisible {
+    <span class="type">RoundedRectangle</span>(cornerRadius: <span class="num">12</span>)
+        .<span class="fn">transition</span>(.<span class="prop">slide</span>)              <span class="com">// Depuis le bord</span>
+        .<span class="fn">transition</span>(.<span class="prop">opacity</span>)            <span class="com">// Fondu</span>
+        .<span class="fn">transition</span>(.<span class="prop">scale</span>)              <span class="com">// Zoom</span>
+        .<span class="fn">transition</span>(.<span class="prop">move</span>(edge: .<span class="prop">bottom</span>)) <span class="com">// Depuis le bas</span>
+
+        <span class="com">// Combinaison de transitions</span>
+        .<span class="fn">transition</span>(.<span class="prop">scale</span>.<span class="fn">combined</span>(with: .<span class="prop">opacity</span>))
+
+        <span class="com">// Asymétrique (entrée ≠ sortie)</span>
+        .<span class="fn">transition</span>(.<span class="fn">asymmetric</span>(
+            insertion: .<span class="prop">slide</span>,
+            removal: .<span class="prop">opacity</span>
+        ))
+}
+</div>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- ================================ FORMULAIRES ================================ -->
+<section class="section" id="formulaires">
+  <div class="section-header">
+    <div class="section-tag">// Leçons 35–42</div>
+    <h2>Formulaires & Contrôles</h2>
+  </div>
+
+  <div class="grid-3">
+    <div class="card">
+      <div class="card-num">#35 — TextField</div>
+      <div class="card-title">Champ de texte</div>
+      <div class="code-block" style="font-size:12px">
+<span class="kw">@State private var</span> text = <span class="str">""</span>
+
+<span class="type">TextField</span>(<span class="str">"Placeholder"</span>, text: $text)
+    .<span class="fn">textFieldStyle</span>(.<span class="prop">roundedBorder</span>)
+    .<span class="fn">keyboardType</span>(.<span class="prop">emailAddress</span>)
+    .<span class="fn">textContentType</span>(.<span class="prop">emailAddress</span>)
+    .<span class="fn">autocorrectionDisabled</span>()
+    .<span class="fn">onSubmit</span> { validate() }
+    .<span class="fn">submitLabel</span>(.<span class="prop">done</span>)
+</div>
+      <div class="modifier-grid" style="margin-top:8px">
+        <span class="mod-tag orange">.keyboardType()</span>
+        <span class="mod-tag orange">.textContentType()</span>
+        <span class="mod-tag orange">.submitLabel()</span>
+        <span class="mod-tag orange">.onSubmit {}</span>
+        <span class="mod-tag orange">.focused()</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-num">#37 — Toggle</div>
+      <div class="card-title">Switch / Toggle</div>
+      <div class="code-block" style="font-size:12px">
+<span class="kw">@State private var</span> isOn = <span class="kw">false</span>
+
+<span class="type">Toggle</span>(<span class="str">"Notifications"</span>, isOn: $isOn)
+    .<span class="fn">toggleStyle</span>(.<span class="prop">switch</span>)
+    .<span class="fn">tint</span>(.<span class="prop">green</span>)
+
+<span class="com">// Style bouton</span>
+<span class="type">Toggle</span>(<span class="str">"Bold"</span>, isOn: $isBold)
+    .<span class="fn">toggleStyle</span>(.<span class="prop">button</span>)
+</div>
+    </div>
+
+    <div class="card">
+      <div class="card-num">#38–40 — Picker & DatePicker</div>
+      <div class="card-title">Sélecteurs</div>
+      <div class="code-block" style="font-size:12px">
+<span class="kw">@State private var</span> selected = <span class="str">"A"</span>
+
+<span class="type">Picker</span>(<span class="str">"Style"</span>, selection: $selected) {
+    <span class="type">ForEach</span>(options, id: \.<span class="prop">self</span>) { opt <span class="kw">in</span>
+        <span class="type">Text</span>(opt).<span class="fn">tag</span>(opt)
+    }
+}
+.<span class="fn">pickerStyle</span>(.<span class="prop">segmented</span>)
+<span class="com">// .wheel / .menu / .inline</span>
+
+<span class="type">DatePicker</span>(<span class="str">"Date"</span>, selection: $date,
+    displayedComponents: [.<span class="prop">date</span>])
+</div>
+    </div>
+
+    <div class="card">
+      <div class="card-num">#42 — Slider</div>
+      <div class="card-title">Glissière</div>
+      <div class="code-block" style="font-size:12px">
+<span class="kw">@State private var</span> value: <span class="type">Double</span> = <span class="num">50</span>
+
+<span class="type">Slider</span>(
+    value: $value,
+    in: <span class="num">0</span>...<span class="num">100</span>,
+    step: <span class="num">5</span>
+) {
+    <span class="type">Text</span>(<span class="str">"Volume"</span>)
+} minimumValueLabel: {
+    <span class="type">Image</span>(systemName: <span class="str">"speaker"</span>)
+} maximumValueLabel: {
+    <span class="type">Image</span>(systemName: <span class="str">"speaker.3"</span>)
+}
+</div>
+    </div>
+
+    <div class="card">
+      <div class="card-num">#41 — Stepper</div>
+      <div class="card-title">Incrémenteur</div>
+      <div class="code-block" style="font-size:12px">
+<span class="kw">@State private var</span> qty = <span class="num">1</span>
+
+<span class="type">Stepper</span>(
+    <span class="str">"Quantité : \(qty)"</span>,
+    value: $qty,
+    in: <span class="num">1</span>...<span class="num">10</span>,
+    step: <span class="num">1</span>
+)
+
+<span class="com">// Custom</span>
+<span class="type">Stepper</span> {
+    <span class="type">Text</span>(<span class="str">"Valeur: \(qty)"</span>)
+} onIncrement: { qty += <span class="num">1</span> }
+  onDecrement: { qty -= <span class="num">1</span> }
+</div>
+    </div>
+
+    <div class="card">
+      <div class="card-num">#48 — Tap Gesture</div>
+      <div class="card-title">Gestes</div>
+      <div class="code-block" style="font-size:12px">
+<span class="com">// Tap simple</span>
+.<span class="fn">onTapGesture</span> { doSomething() }
+.<span class="fn">onTapGesture</span>(count: <span class="num">2</span>) { doDouble() }
+
+<span class="com">// Long press</span>
+.<span class="fn">onLongPressGesture</span>(minimumDuration: <span class="num">1</span>) {
+    showMenu = <span class="kw">true</span>
+}
+
+<span class="com">// Drag</span>
+.<span class="fn">gesture</span>(
+    <span class="type">DragGesture</span>()
+        .<span class="fn">onChanged</span> { value <span class="kw">in</span>
+            offset = value.translation
+        }
+)
+</div>
+    </div>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- ================================ iOS 15+ ================================ -->
+<section class="section" id="ios15">
+  <div class="section-header">
+    <div class="section-tag">// Leçons 55–61</div>
+    <h2>Nouveautés iOS 15+</h2>
+  </div>
+
+  <div class="grid-3">
+    <div class="card">
+      <div class="card-num">#55 — System Materials</div>
+      <div class="card-title">Matériaux système</div>
+      <p class="card-desc">Effets de flou et de transparence natifs d'Apple, adaptés au thème clair/sombre.</p>
+      <div class="code-block" style="font-size:12px">
+<span class="type">RoundedRectangle</span>(cornerRadius: <span class="num">20</span>)
+    .<span class="fn">fill</span>(.<span class="prop">ultraThinMaterial</span>)
+
+<span class="com">// Niveaux de matériaux :</span>
+<span class="com">// .ultraThinMaterial</span>
+<span class="com">// .thinMaterial</span>
+<span class="com">// .regularMaterial</span>
+<span class="com">// .thickMaterial</span>
+<span class="com">// .ultraThickMaterial</span>
+</div>
+    </div>
+
+    <div class="card">
+      <div class="card-num">#57 — Button Styles</div>
+      <div class="card-title">Styles de boutons iOS 15</div>
+      <div class="code-block" style="font-size:12px">
+<span class="type">Button</span>(<span class="str">"Valider"</span>) { }
+    .<span class="fn">buttonStyle</span>(.<span class="prop">borderedProminent</span>)
+    .<span class="fn">controlSize</span>(.<span class="prop">large</span>)   <span class="com">// .mini .small .regular .large</span>
+    .<span class="fn">tint</span>(.<span class="prop">indigo</span>)
+    .<span class="fn">buttonBorderShape</span>(.<span class="prop">capsule</span>)
+    <span class="com">// .automatic / .roundedRectangle / .capsule</span>
+</div>
+    </div>
+
+    <div class="card">
+      <div class="card-num">#60 — @FocusState</div>
+      <div class="card-title">Focus clavier</div>
+      <div class="code-block" style="font-size:12px">
+<span class="kw">@FocusState private var</span> isFocused: <span class="type">Bool</span>
+<span class="kw">@FocusState private var</span> focused: <span class="type">Field</span>?
+
+<span class="type">TextField</span>(<span class="str">"Email"</span>, text: $email)
+    .<span class="fn">focused</span>($isFocused)
+
+<span class="com">// Focus clavier automatique</span>
+.<span class="fn">onAppear</span> { isFocused = <span class="kw">true</span> }
+
+<span class="com">// Dismiss clavier</span>
+.<span class="fn">toolbar</span> {
+    <span class="type">ToolbarItemGroup</span>(placement: .<span class="prop">keyboard</span>) {
+        <span class="type">Button</span>(<span class="str">"OK"</span>) { isFocused = <span class="kw">false</span> }
+    }
+}
+</div>
+    </div>
+
+    <div class="card">
+      <div class="card-num">#58 — List Swipe Actions</div>
+      <div class="card-title">Actions de balayage personnalisées</div>
+      <div class="code-block" style="font-size:12px">
+<span class="type">List</span>(items) { item <span class="kw">in</span>
+    <span class="type">Text</span>(item.name)
+        .<span class="fn">swipeActions</span>(edge: .<span class="prop">trailing</span>) {
+            <span class="type">Button</span>(role: .<span class="prop">destructive</span>) {
+                delete(item)
+            } label: {
+                <span class="type">Label</span>(<span class="str">"Supprimer"</span>, systemImage: <span class="str">"trash"</span>)
+            }
+        }
+        .<span class="fn">swipeActions</span>(edge: .<span class="prop">leading</span>) {
+            <span class="type">Button</span> { pin(item) } label: {
+                <span class="type">Label</span>(<span class="str">"Épingler"</span>, systemImage: <span class="str">"pin"</span>)
+            }.<span class="fn">tint</span>(.<span class="prop">yellow</span>)
+        }
+}
+</div>
+    </div>
+
+    <div class="card">
+      <div class="card-num">#59 — Badges</div>
+      <div class="card-title">Badges sur Tab & List</div>
+      <div class="code-block" style="font-size:12px">
+<span class="type">TabView</span> {
+    <span class="type">MessagesView</span>()
+        .<span class="fn">tabItem</span> {
+            <span class="type">Label</span>(<span class="str">"Messages"</span>, systemImage: <span class="str">"envelope"</span>)
+        }
+        .<span class="fn">badge</span>(<span class="num">5</span>)
+
+    <span class="type">NotificationsView</span>()
+        .<span class="fn">tabItem</span> { ... }
+        .<span class="fn">badge</span>(<span class="str">"NEW"</span>) <span class="com">// Texte iOS 16+</span>
+}
+</div>
+    </div>
+
+    <div class="card">
+      <div class="card-num">#56 — TextSelection</div>
+      <div class="card-title">Sélection de texte</div>
+      <div class="code-block" style="font-size:12px">
+<span class="com">// Activer la sélection de texte</span>
+<span class="type">Text</span>(<span class="str">"Texte copiable"</span>)
+    .<span class="fn">textSelection</span>(.<span class="prop">enabled</span>)
+
+<span class="type">Text</span>(<span class="str">"Texte non sélectionnable"</span>)
+    .<span class="fn">textSelection</span>(.<span class="prop">disabled</span>)
+</div>
+    </div>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- ================================ AVANCÉ ================================ -->
+<section class="section" id="avance">
+  <div class="section-header">
+    <div class="section-tag">// Leçons 62–76</div>
+    <h2>Avancé — iOS 16+</h2>
+  </div>
+
+  <div class="grid-2">
+    <div class="big-card" style="margin-bottom:0">
+      <div class="header">
+        <div>
+          <div class="card-num">#64 — Resizable Sheet</div>
+          <h3>Feuilles redimensionnables</h3>
+        </div>
+        <div class="chip teal">iOS 16+</div>
+      </div>
+      <div class="code-block">
+.<span class="fn">sheet</span>(isPresented: $show) {
+    <span class="type">DetailView</span>()
+        .<span class="fn">presentationDetents</span>([
+            .<span class="prop">fraction</span>(<span class="num">0.25</span>),
+            .<span class="prop">medium</span>,
+            .<span class="prop">large</span>,
+            .<span class="fn">height</span>(<span class="num">200</span>)
+        ])
+        .<span class="fn">presentationDragIndicator</span>(.<span class="prop">visible</span>)
+        .<span class="fn">presentationCornerRadius</span>(<span class="num">24</span>)
+        .<span class="fn">presentationBackground</span>(.<span class="prop">ultraThinMaterial</span>)
+        .<span class="fn">interactiveDismissDisabled</span>()
+}
+</div>
+    </div>
+
+    <div class="big-card" style="margin-bottom:0">
+      <div class="header">
+        <div>
+          <div class="card-num">#72 — NavigationSplitView</div>
+          <h3>Layout iPad / Mac</h3>
+        </div>
+        <div class="chip teal">iOS 16+</div>
+      </div>
+      <div class="code-block">
+<span class="type">NavigationSplitView</span> {
+    <span class="com">// Sidebar (colonne gauche)</span>
+    <span class="type">List</span>(items, selection: $selected) { item <span class="kw">in</span>
+        <span class="type">Text</span>(item.name)
+    }
+} content: {
+    <span class="com">// Colonne centrale (iPad 3 colonnes)</span>
+    <span class="kw">if let</span> item = selected {
+        <span class="type">SubListView</span>(item: item)
+    }
+} detail: {
+    <span class="com">// Détail (colonne droite)</span>
+    <span class="type">DetailView</span>(item: selected)
+}
+.<span class="fn">navigationSplitViewStyle</span>(.<span class="prop">balanced</span>)
+</div>
+    </div>
+  </div>
+
+  <div class="grid-3" style="margin-top:20px">
+    <div class="card">
+      <div class="card-num">#67 — Animation (iOS 16+)</div>
+      <div class="card-title">Animation avec valeur</div>
+      <div class="code-block" style="font-size:12px">
+<span class="com">// Nouveau modifier withAnimation</span>
+.<span class="fn">animation</span>(
+    .<span class="prop">spring</span>(duration: <span class="num">0.5</span>, bounce: <span class="num">0.3</span>),
+    value: isExpanded
+)
+
+<span class="com">// Phases d'animation</span>
+.<span class="fn">phaseAnimator</span>([<span class="kw">false</span>, <span class="kw">true</span>]) { view, phase <span class="kw">in</span>
+    view
+        .<span class="fn">scaleEffect</span>(phase ? <span class="num">1.2</span> : <span class="num">1</span>)
+        .<span class="fn">opacity</span>(phase ? <span class="num">1</span> : <span class="num">0.8</span>)
+}
+</div>
+    </div>
+
+    <div class="card">
+      <div class="card-num">#73 — Grid</div>
+      <div class="card-title">Grid (iOS 16+)</div>
+      <div class="code-block" style="font-size:12px">
+<span class="com">// Grid fixe et précise</span>
+<span class="type">Grid</span>(alignment: .<span class="prop">center</span>, spacing: <span class="num">8</span>) {
+    <span class="type">GridRow</span> {
+        <span class="type">Text</span>(<span class="str">"A"</span>)
+        <span class="type">Text</span>(<span class="str">"B"</span>)
+        <span class="type">Text</span>(<span class="str">"C"</span>)
+    }
+    <span class="type">GridRow</span> {
+        <span class="type">Color</span>.<span class="prop">blue</span>
+            .<span class="fn">gridCellColumns</span>(<span class="num">2</span>) <span class="com">// Span 2 cols</span>
+        <span class="type">Color</span>.<span class="prop">red</span>
+    }
+}
+</div>
+    </div>
+
+    <div class="card">
+      <div class="card-num">#74 — ContentUnavailableView</div>
+      <div class="card-title">Vue d'état vide (iOS 17+)</div>
+      <div class="code-block" style="font-size:12px">
+<span class="com">// Vue vide standard</span>
+<span class="type">ContentUnavailableView</span>(
+    <span class="str">"Aucun résultat"</span>,
+    systemImage: <span class="str">"magnifyingglass"</span>,
+    description: <span class="type">Text</span>(<span class="str">"Essayez un autre terme"</span>)
+)
+
+<span class="com">// Recherche intégrée</span>
+<span class="type">ContentUnavailableView</span>
+    .<span class="fn">search</span>(text: searchText)
+</div>
+    </div>
+  </div>
+
+  <!-- MODIFIERS GLOBAUX -->
+  <div class="chapter-divider">
+    <div class="chapter-line"></div>
+    <span class="chapter-label">Modifiers universels</span>
+    <div class="chapter-line"></div>
+  </div>
+
+  <div class="big-card">
+    <div class="header">
+      <div>
+        <h3>Modifiers applicables à toutes les vues</h3>
+      </div>
+      <div class="chip purple">Référence</div>
+    </div>
+    <p class="desc">Ces modifiers fonctionnent sur la quasi-totalité des vues SwiftUI :</p>
+
+    <table>
+      <tr><th>Modifier</th><th>Description</th></tr>
+      <tr><td>.opacity()</td><td>Transparence de 0 à 1</td></tr>
+      <tr><td>.shadow(color:radius:x:y:)</td><td>Ombre portée</td></tr>
+      <tr><td>.blur(radius:)</td><td>Flou gaussien</td></tr>
+      <tr><td>.scaleEffect()</td><td>Mise à l'échelle (1 = normal)</td></tr>
+      <tr><td>.rotationEffect()</td><td>Rotation 2D en degrés</td></tr>
+      <tr><td>.rotation3DEffect()</td><td>Rotation 3D avec axe</td></tr>
+      <tr><td>.offset(x:y:)</td><td>Décalage sans affecter le layout</td></tr>
+      <tr><td>.position(x:y:)</td><td>Position absolue dans le parent</td></tr>
+      <tr><td>.clipped()</td><td>Découpe aux limites du frame</td></tr>
+      <tr><td>.mask()</td><td>Masque avec une autre vue</td></tr>
+      <tr><td>.border()</td><td>Contour simple</td></tr>
+      <tr><td>.cornerRadius()</td><td>Coins arrondis (déprécie)</td></tr>
+      <tr><td>.clipShape()</td><td>Découpe avec une forme</td></tr>
+      <tr><td>.disabled()</td><td>Désactive l'interaction</td></tr>
+      <tr><td>.hidden()</td><td>Rend invisible (occupe l'espace)</td></tr>
+      <tr><td>.onAppear()</td><td>Action à l'apparition</td></tr>
+      <tr><td>.onDisappear()</td><td>Action à la disparition</td></tr>
+      <tr><td>.onChange(of:)</td><td>Réagit à un changement de valeur</td></tr>
+      <tr><td>.task()</td><td>Tâche async à l'apparition</td></tr>
+      <tr><td>.refreshable()</td><td>Pull to refresh</td></tr>
+      <tr><td>.redacted(reason:)</td><td>Mode skeleton/placeholder</td></tr>
+      <tr><td>.accessibilityLabel()</td><td>Label pour VoiceOver</td></tr>
+      <tr><td>.help()</td><td>Tooltip (macOS / cursor)</td></tr>
+      <tr><td>.id()</td><td>Force le re-render</td></tr>
+      <tr><td>.equatable()</td><td>Optimise le re-render</td></tr>
+      <tr><td>.drawingGroup()</td><td>Rendu GPU offscreen</td></tr>
+      <tr><td>.compositingGroup()</td><td>Groupe de compositing</td></tr>
+      <tr><td>.allowsHitTesting(false)</td><td>Ignore les interactions</td></tr>
+      <tr><td>.contentShape()</td><td>Zone de toucher custom</td></tr>
+      <tr><td>.zIndex()</td><td>Ordre Z dans un ZStack</td></tr>
+      <tr><td>.layoutPriority()</td><td>Priorité dans le layout</td></tr>
+    </table>
+  </div>
+</section>
+
+<footer>
+  <div style="max-width:1200px;margin:0 auto">
+    SwiftUI Bootcamp · 76 leçons · Tous droits réservés · Fait avec ❤️ pour apprendre iOS
+  </div>
+</footer>
+
+</body>
+</html>
