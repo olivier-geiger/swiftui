@@ -205,7 +205,7 @@
   }
 
   .nav-inner {
-    max-width: 1200px;
+    max-width: 1600px;
     margin: 0 auto;
     display: flex;
     align-items: center;
@@ -236,9 +236,9 @@
 
   /* SECTIONS */
   .section {
-    max-width: 1200px;
+    max-width: 1600px;
     margin: 0 auto;
-    padding: 80px 24px;
+    padding: 80px 48px;
   }
 
   .section-header {
@@ -268,8 +268,13 @@
   }
 
   /* CARDS GRID */
-  .grid-2 { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 24px; }
-  .grid-3 { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+  .grid-2 { display: grid; grid-template-columns: repeat(auto-fill, minmax(480px, 1fr)); gap: 24px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+
+  @media (max-width: 800px) {
+    .grid-2 { grid-template-columns: 1fr; }
+    .grid-3 { grid-template-columns: 1fr; }
+  }
 
   .card {
     background: var(--card);
@@ -1915,7 +1920,7 @@
 </section>
 
 <footer>
-  <div style="max-width:1200px;margin:0 auto">
+  <div style="max-width:1600px;margin:0 auto">
     SwiftUI Bootcamp · 76 leçons · Tous droits réservés · Fait avec ❤️ pour apprendre iOS
   </div>
 </footer>
